@@ -10,6 +10,9 @@ import java.sql.Connection;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Karyawan.karyawan;
+import Karyawan.penilaian;
+import Karyawan.perangkingan;
+import menuUtama.dashbor;
 
 /**
  *
@@ -19,10 +22,10 @@ public class menuUtama extends javax.swing.JFrame {
 
 //    private Connection conn = new koneksi().connect();
     //fotm
-//    dahshbore de;
+    dashbor de;
     karyawan kr;
-//    penilaian pn;
-//    perengkingan pr;
+    penilaian pn;
+    perangkingan pr;
 //    about at;
     //
     
@@ -35,22 +38,22 @@ public class menuUtama extends javax.swing.JFrame {
     }
     public void panel_form(){
         //jpanel form namanya diubah menjadi variabel
-//        de = new dahshbore();
+        de = new dashbor();
         kr = new Karyawan.karyawan();
-//        pn = new penilaian();
-//        pr = new perengkingan();
+        pn = new penilaian();
+        pr = new perangkingan();
 //        at = new about();
 //        //memnanggil jpanel form ke panelyang sudah diubah menjadi variabel
-//        panelbody.add(de);
+        panelbody.add(de);
         panelbody.add(kr);
-//        panelbody.add(pn);
-//        panelbody.add(pr);
+        panelbody.add(pn);
+        panelbody.add(pr);
 //        panelbody.add(at);
 //        // variabel jpanel form awalan saat membuka form menu
-//        de.setVisible(true);
-        kr.setVisible(true);
-//        pn.setVisible(false);
-//        pr.setVisible(false);
+        de.setVisible(true);
+        kr.setVisible(false);
+        pn.setVisible(false);
+        pr.setVisible(false);
 //        at.setVisible(false);
     }
     /**
@@ -616,10 +619,10 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
-//        de.setVisible(true);
+        de.setVisible(true);
         kr.setVisible(false);
-//        pn.setVisible(false);
-//        pr.setVisible(false);
+        pn.setVisible(false);
+        pr.setVisible(false);
 //        at.setVisible(false);
         // btn input
     }//GEN-LAST:event_btndashbordMouseClicked
@@ -667,10 +670,10 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
-//        de.setVisible(false);
+        de.setVisible(false);
         kr.setVisible(true);
-//        pn.setVisible(false);
-//        pr.setVisible(false);
+        pn.setVisible(false);
+        pr.setVisible(false);
 //        at.setVisible(false);
         // btn input
         btnkaryawan.setVisible(true);
@@ -722,10 +725,10 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
-//        de.setVisible(false);
+        de.setVisible(false);
         kr.setVisible(false);
-//        pn.setVisible(false);
-//        pr.setVisible(true);
+        pn.setVisible(false);
+        pr.setVisible(true);
 //        at.setVisible(false);
 
         //btn input
@@ -777,10 +780,10 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
-//        de.setVisible(false);
+        de.setVisible(false);
         kr.setVisible(false);
-//        pn.setVisible(true);
-//        pr.setVisible(false);
+        pn.setVisible(true);
+        pr.setVisible(false);
 //        at.setVisible(false);
         // btn input
         btnkaryawan.setVisible(true);
@@ -831,10 +834,10 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_about_biru.setVisible(true);
         //
         //memilih form sesuai yang dipilih
-//        de.setVisible(false);
+        de.setVisible(false);
         kr.setVisible(false);
-//        pn.setVisible(false);
-//        pr.setVisible(false);
+        pn.setVisible(false);
+        pr.setVisible(false);
 //        at.setVisible(true);
         // btn input
         btnkaryawan.setVisible(true);
