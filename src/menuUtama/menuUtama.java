@@ -13,6 +13,7 @@ import Karyawan.karyawan;
 import Karyawan.penilaian;
 import Karyawan.perangkingan;
 import menuUtama.dashbor;
+import Karyawan.kriteria;
 
 /**
  *
@@ -26,6 +27,7 @@ public class menuUtama extends javax.swing.JFrame {
     karyawan kr;
     penilaian pn;
     perangkingan pr;
+    kriteria kt;
 //    about at;
     //
     
@@ -42,18 +44,21 @@ public class menuUtama extends javax.swing.JFrame {
         kr = new Karyawan.karyawan();
         pn = new penilaian();
         pr = new perangkingan();
+        kt = new kriteria();
 //        at = new about();
 //        //memnanggil jpanel form ke panelyang sudah diubah menjadi variabel
         panelbody.add(de);
         panelbody.add(kr);
         panelbody.add(pn);
         panelbody.add(pr);
+        panelbody.add(kt);
 //        panelbody.add(at);
 //        // variabel jpanel form awalan saat membuka form menu
         de.setVisible(true);
         kr.setVisible(false);
         pn.setVisible(false);
         pr.setVisible(false);
+        kt.setVisible(false);
 //        at.setVisible(false);
     }
     /**
@@ -99,6 +104,11 @@ public class menuUtama extends javax.swing.JFrame {
         pnllogout = new javax.swing.JPanel();
         lblicon_logout_abu = new javax.swing.JLabel();
         lbllogout = new javax.swing.JLabel();
+        btnkriteria = new javax.swing.JPanel();
+        lblkriteria = new javax.swing.JLabel();
+        pnlkriteria = new javax.swing.JPanel();
+        lblicon_kriteria_abu = new javax.swing.JLabel();
+        lblicon_kriteria_biru = new javax.swing.JLabel();
         jspbody = new javax.swing.JScrollPane();
         panelbody = new javax.swing.JPanel();
 
@@ -354,9 +364,9 @@ public class menuUtama extends javax.swing.JFrame {
             .addGroup(btnpenilaianLayout.createSequentialGroup()
                 .addGap(11, 11, 11)
                 .addGroup(btnpenilaianLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(lblpenilaian)
                     .addComponent(lblicon_penilaian_biru)
                     .addComponent(lblicon_penilaian_abu)))
-            .addComponent(lblpenilaian)
         );
 
         lbl_xy1.setBackground(new java.awt.Color(0, 0, 0));
@@ -507,15 +517,63 @@ public class menuUtama extends javax.swing.JFrame {
                 .addComponent(lblicon_logout_abu))
         );
 
+        btnkriteria.setBackground(new java.awt.Color(255, 255, 255));
+        btnkriteria.setPreferredSize(new java.awt.Dimension(118, 40));
+        btnkriteria.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnkriteriaMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnkriteriaMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnkriteriaMouseExited(evt);
+            }
+        });
+        btnkriteria.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        lblkriteria.setBackground(new java.awt.Color(0, 0, 0));
+        lblkriteria.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblkriteria.setForeground(new java.awt.Color(153, 153, 153));
+        lblkriteria.setText("Kriteria");
+        btnkriteria.add(lblkriteria, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
+
+        pnlkriteria.setBackground(new java.awt.Color(0, 194, 255));
+        pnlkriteria.setOpaque(false);
+        pnlkriteria.setPreferredSize(new java.awt.Dimension(6, 30));
+
+        javax.swing.GroupLayout pnlkriteriaLayout = new javax.swing.GroupLayout(pnlkriteria);
+        pnlkriteria.setLayout(pnlkriteriaLayout);
+        pnlkriteriaLayout.setHorizontalGroup(
+            pnlkriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 5, Short.MAX_VALUE)
+        );
+        pnlkriteriaLayout.setVerticalGroup(
+            pnlkriteriaLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 40, Short.MAX_VALUE)
+        );
+
+        btnkriteria.add(pnlkriteria, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 5, 40));
+
+        lblicon_kriteria_abu.setBackground(new java.awt.Color(0, 0, 0));
+        lblicon_kriteria_abu.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblicon_kriteria_abu.setForeground(new java.awt.Color(153, 153, 153));
+        btnkriteria.add(lblicon_kriteria_abu, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 11, -1, -1));
+
+        lblicon_kriteria_biru.setBackground(new java.awt.Color(0, 0, 0));
+        lblicon_kriteria_biru.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblicon_kriteria_biru.setForeground(new java.awt.Color(153, 153, 153));
+        btnkriteria.add(lblicon_kriteria_biru, new org.netbeans.lib.awtextra.AbsoluteConstraints(49, 11, -1, -1));
+
         javax.swing.GroupLayout panel_kiriLayout = new javax.swing.GroupLayout(panel_kiri);
         panel_kiri.setLayout(panel_kiriLayout);
         panel_kiriLayout.setHorizontalGroup(
             panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(btnpenilaian, javax.swing.GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE)
             .addGroup(panel_kiriLayout.createSequentialGroup()
-                .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnabout, javax.swing.GroupLayout.DEFAULT_SIZE, 931, Short.MAX_VALUE))
+                .addComponent(btnkriteria, javax.swing.GroupLayout.DEFAULT_SIZE, 659, Short.MAX_VALUE)
+                .addGap(28, 28, 28)
+                .addComponent(btnabout, javax.swing.GroupLayout.DEFAULT_SIZE, 462, Short.MAX_VALUE))
             .addGroup(panel_kiriLayout.createSequentialGroup()
                 .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
@@ -523,7 +581,8 @@ public class menuUtama extends javax.swing.JFrame {
                         .addComponent(btnkaryawan, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(btndashbord, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 1149, Short.MAX_VALUE))
                     .addComponent(usernamee, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lbl_xy1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(lbl_xy1, javax.swing.GroupLayout.PREFERRED_SIZE, 220, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, Short.MAX_VALUE))
         );
         panel_kiriLayout.setVerticalGroup(
@@ -535,20 +594,22 @@ public class menuUtama extends javax.swing.JFrame {
                 .addComponent(usernamee)
                 .addGap(49, 49, 49)
                 .addComponent(btndashbord, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(10, 10, 10)
+                .addGap(2, 2, 2)
                 .addComponent(btnkaryawan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnpenilaian, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(8, 8, 8)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnrangking, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(panel_kiriLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panel_kiriLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGap(11, 11, 11)
                         .addComponent(btnabout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(panel_kiriLayout.createSequentialGroup()
-                        .addGap(49, 49, 49)
-                        .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(2553, 2553, 2553))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnkriteria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(50, 50, 50)
+                .addComponent(btnlogout, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         jspitem.setViewportView(panel_kiri);
@@ -596,13 +657,16 @@ public class menuUtama extends javax.swing.JFrame {
         resetlabelColor(lblpenilaian);
         resetlabelColor(lblrangking);
         resetlabelColor(lblabout);
+        resetlabelColor(lblkriteria);
         //
         // set atau reswt warna panel kiri item
         setpanelColor(pnldashbord);
         resetpanelColor(pnlkaryawan);
         resetpanelColor(pnlpenilaian);
         resetpanelColor(pnlrangking);
-        resetpanelColor(pnlabout);
+        resetpanelColor(pnlabout);        
+        resetpanelColor(pnlkriteria);
+
         //
         //tampil awal sebelum dirun pada panel kiri item
         pnldashbord.setOpaque(true);
@@ -610,6 +674,8 @@ public class menuUtama extends javax.swing.JFrame {
         pnlpenilaian.setOpaque(false);
         pnlrangking.setOpaque(false);
         pnlabout.setOpaque(false);
+        pnlkriteria.setOpaque(false);
+        pnlkriteria.setOpaque(false);
         //
         //menampilkan atau tidak icon pada panel item
         lblicon_dashbore_abu.setVisible(false);
@@ -621,6 +687,7 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_penilaian_abu.setVisible(true);
         lblicon_penilaian_biru.setVisible(false);
         lblicon_about_abu.setVisible(true);
+        lblicon_kriteria_abu.setVisible(false);
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
@@ -628,6 +695,7 @@ public class menuUtama extends javax.swing.JFrame {
         kr.setVisible(false);
         pn.setVisible(false);
         pr.setVisible(false);
+        kt.setVisible(false);
 //        at.setVisible(false);
         // btn input
     }//GEN-LAST:event_btndashbordMouseClicked
@@ -647,20 +715,24 @@ public class menuUtama extends javax.swing.JFrame {
         resetlabelColor(lblpenilaian);
         resetlabelColor(lblrangking);
         resetlabelColor(lblabout);
+        resetlabelColor(lblkriteria);
         //
         // set atau reswt warna panel kiri item
         resetpanelColor(pnldashbord);
         setpanelColor(pnlkaryawan);
         resetpanelColor(pnlpenilaian);
         resetpanelColor(pnlrangking);
-        resetpanelColor(pnlabout);
+        resetpanelColor(pnlabout);        resetpanelColor(pnlkriteria);
+
         //
         //tampil awal sebelum dirun pada panel kiri item
         pnldashbord.setOpaque(false);
         pnlkaryawan.setOpaque(true);
         pnlpenilaian.setOpaque(false);
         pnlrangking.setOpaque(false);
+        pnlkriteria.setOpaque(false);
         pnlabout.setOpaque(false);
+        pnlkriteria.setOpaque(false);
         //
         //menampilkan atau tidak icon pada panel item
         lblicon_dashbore_abu.setVisible(true);
@@ -672,6 +744,7 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_penilaian_abu.setVisible(true);
         lblicon_penilaian_biru.setVisible(false);
         lblicon_about_abu.setVisible(true);
+        lblicon_kriteria_abu.setVisible(false);
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
@@ -702,6 +775,7 @@ public class menuUtama extends javax.swing.JFrame {
         setlabelColor(lblrangking);
         resetlabelColor(lblabout);
         resetlabelColor(lblabout);
+        resetlabelColor(lblkriteria);
         //
         // set atau reswt warna panel kiri item
         resetpanelColor(pnldashbord);
@@ -709,13 +783,17 @@ public class menuUtama extends javax.swing.JFrame {
         resetpanelColor(pnlpenilaian);
         setpanelColor(pnlrangking);
         resetpanelColor(pnlabout);
+                resetpanelColor(pnlkriteria);
+
         //
         //tampil awal sebelum dirun pada panel kiri item
         pnldashbord.setOpaque(false);
         pnlkaryawan.setOpaque(false);
         pnlpenilaian.setOpaque(false);
         pnlrangking.setOpaque(true);
+        pnlkriteria.setOpaque(false);
         pnlabout.setOpaque(false);
+        pnlkriteria.setOpaque(false);
         //
         //menampilkan atau tidak icon pada panel item
         lblicon_dashbore_abu.setVisible(true);
@@ -727,6 +805,7 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_penilaian_abu.setVisible(true);
         lblicon_penilaian_biru.setVisible(false);
         lblicon_about_abu.setVisible(true);
+        lblicon_kriteria_abu.setVisible(false);
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
@@ -734,6 +813,7 @@ public class menuUtama extends javax.swing.JFrame {
         kr.setVisible(false);
         pn.setVisible(false);
         pr.setVisible(true);
+        kt.setVisible(false);
 //        at.setVisible(false);
 
         //btn input
@@ -757,13 +837,16 @@ public class menuUtama extends javax.swing.JFrame {
         setlabelColor(lblpenilaian);
         resetlabelColor(lblrangking);
         resetlabelColor(lblabout);
+        resetlabelColor(lblkriteria);
         //
         // set atau reswt warna panel kiri item
         resetpanelColor(pnldashbord);
         resetpanelColor(pnlkaryawan);
         setpanelColor(pnlpenilaian);
         resetpanelColor(pnlrangking);
-        resetpanelColor(pnlabout);
+        resetpanelColor(pnlabout);        
+        resetpanelColor(pnlkriteria);
+
         //
         //tampil awal sebelum dirun pada panel kiri item
         pnldashbord.setOpaque(false);
@@ -771,6 +854,7 @@ public class menuUtama extends javax.swing.JFrame {
         pnlpenilaian.setOpaque(true);
         pnlrangking.setOpaque(false);
         pnlabout.setOpaque(false);
+        pnlkriteria.setOpaque(false);
         //
         //menampilkan atau tidak icon pada panel item
         lblicon_dashbore_abu.setVisible(true);
@@ -782,6 +866,7 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_penilaian_abu.setVisible(false);
         lblicon_penilaian_biru.setVisible(true);
         lblicon_about_abu.setVisible(true);
+        lblicon_kriteria_abu.setVisible(false);
         lblicon_about_biru.setVisible(false);
         //
         //memilih form sesuai yang dipilih
@@ -789,6 +874,7 @@ public class menuUtama extends javax.swing.JFrame {
         kr.setVisible(false);
         pn.setVisible(true);
         pr.setVisible(false);
+        kt.setVisible(false);
 //        at.setVisible(false);
         // btn input
         btnkaryawan.setVisible(true);
@@ -811,6 +897,7 @@ public class menuUtama extends javax.swing.JFrame {
         resetlabelColor(lblpenilaian);
         resetlabelColor(lblrangking);
         setlabelColor(lblabout);
+        resetlabelColor(lblkriteria);
         //
         // set atau reswt warna panel kiri item
         resetpanelColor(pnldashbord);
@@ -818,6 +905,7 @@ public class menuUtama extends javax.swing.JFrame {
         resetpanelColor(pnlpenilaian);
         resetpanelColor(pnlrangking);
         setpanelColor(pnlabout);
+        resetpanelColor(pnlkriteria);
         //
         //tampil awal sebelum dirun pada panel kiri item
         pnldashbord.setOpaque(false);
@@ -836,6 +924,7 @@ public class menuUtama extends javax.swing.JFrame {
         lblicon_penilaian_abu.setVisible(true);
         lblicon_penilaian_biru.setVisible(false);
         lblicon_about_abu.setVisible(false);
+        lblicon_kriteria_abu.setVisible(false);
         lblicon_about_biru.setVisible(true);
         //
         //memilih form sesuai yang dipilih
@@ -871,6 +960,66 @@ public class menuUtama extends javax.swing.JFrame {
     private void btnlogoutMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnlogoutMouseExited
         resetColorExited(btnlogout);
     }//GEN-LAST:event_btnlogoutMouseExited
+
+    private void btnkriteriaMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkriteriaMouseClicked
+         //set atau reset warna label item
+        resetlabelColor(lbldashbord);
+        resetlabelColor(lblkaryawan);
+        resetlabelColor(lblpenilaian);
+        resetlabelColor(lblrangking);
+        resetlabelColor(lblabout);
+        setlabelColor(lblkriteria);
+        //
+        // set atau reswt warna panel kiri item
+        resetpanelColor(pnldashbord);
+        resetpanelColor(pnlkaryawan);
+        resetpanelColor(pnlpenilaian);
+        resetpanelColor(pnlrangking);
+        resetpanelColor(pnlabout);
+        setpanelColor(pnlkriteria);
+        //
+        //tampil awal sebelum dirun pada panel kiri item
+        pnldashbord.setOpaque(false);
+        pnlkaryawan.setOpaque(false);
+        pnlpenilaian.setOpaque(false);
+        pnlrangking.setOpaque(false);
+        pnlabout.setOpaque(false);
+        pnlkriteria.setOpaque(true);
+        //
+        //menampilkan atau tidak icon pada panel item
+        lblicon_dashbore_abu.setVisible(true);
+        lblicon_dashbore_biru.setVisible(false);
+        lblicon_karyawan_abu.setVisible(true);
+        lblicon_karyawan_biru.setVisible(false);
+        lblicon_rangking_abu.setVisible(true);
+        lblicon_rangking_biru.setVisible(false);
+        lblicon_penilaian_abu.setVisible(true);
+        lblicon_penilaian_biru.setVisible(false);
+        lblicon_about_abu.setVisible(false);
+        lblicon_about_biru.setVisible(false);
+        lblicon_kriteria_biru.setVisible(true);
+        //
+        //memilih form sesuai yang dipilih
+        de.setVisible(false);
+        kr.setVisible(false);
+        pn.setVisible(false);
+        pr.setVisible(false);        
+        kt.setVisible(true);
+
+//        at.setVisible(true);
+        // btn input
+        btnkaryawan.setVisible(true);
+        btnpenilaian.setVisible(true);
+        btnpenilaian.setVisible(true);
+    }//GEN-LAST:event_btnkriteriaMouseClicked
+
+    private void btnkriteriaMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkriteriaMouseEntered
+        setColorEntered(btnkriteria);
+    }//GEN-LAST:event_btnkriteriaMouseEntered
+
+    private void btnkriteriaMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnkriteriaMouseExited
+        resetColorExited(btnkriteria);
+    }//GEN-LAST:event_btnkriteriaMouseExited
 
     //warna button even entered dan exited
     void setColorEntered(JPanel panel){
@@ -938,6 +1087,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel btnabout;
     private javax.swing.JPanel btndashbord;
     private javax.swing.JPanel btnkaryawan;
+    private javax.swing.JPanel btnkriteria;
     private javax.swing.JPanel btnlogout;
     private javax.swing.JPanel btnpenilaian;
     private javax.swing.JPanel btnrangking;
@@ -953,12 +1103,15 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JLabel lblicon_dashbore_biru;
     private javax.swing.JLabel lblicon_karyawan_abu;
     private javax.swing.JLabel lblicon_karyawan_biru;
+    private javax.swing.JLabel lblicon_kriteria_abu;
+    private javax.swing.JLabel lblicon_kriteria_biru;
     private javax.swing.JLabel lblicon_logout_abu;
     private javax.swing.JLabel lblicon_penilaian_abu;
     private javax.swing.JLabel lblicon_penilaian_biru;
     private javax.swing.JLabel lblicon_rangking_abu;
     private javax.swing.JLabel lblicon_rangking_biru;
     private javax.swing.JLabel lblkaryawan;
+    private javax.swing.JLabel lblkriteria;
     private javax.swing.JLabel lbllogout;
     private javax.swing.JLabel lblpenilaian;
     private javax.swing.JLabel lblrangking;
@@ -967,6 +1120,7 @@ public class menuUtama extends javax.swing.JFrame {
     private javax.swing.JPanel pnlabout;
     private javax.swing.JPanel pnldashbord;
     private javax.swing.JPanel pnlkaryawan;
+    private javax.swing.JPanel pnlkriteria;
     private javax.swing.JPanel pnllogout;
     private javax.swing.JPanel pnlpenilaian;
     private javax.swing.JPanel pnlrangking;
