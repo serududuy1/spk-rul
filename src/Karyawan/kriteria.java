@@ -12,6 +12,12 @@ import koneksi.koneksi;
 import static menuUtama.dashbor.lbljumlah_karyawan;
 import static menuUtama.dashbor.table1;
 import static Karyawan.karyawan.tblkaryawan;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+import javax.swing.JOptionPane;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -58,6 +64,13 @@ public class kriteria extends javax.swing.JPanel {
 //        lbljumlah_karyawan.setText(""+b);    //label total karyawan yg diform karyawan,total data didatbel dipanggil ke label total
 //        lbltotal_karyawan.setText(""+b); //label total karyawan yg dimenu utama,total data didata tabel dipanggil ke label total
     }  
+    
+    public void bersih(){
+        txtkrite.setText("");
+        jTextField2.setText("");
+        jButton2.setEnabled(false);
+        jButton4.setEnabled(false);
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -74,17 +87,16 @@ public class kriteria extends javax.swing.JPanel {
         lbldata_karyawan = new javax.swing.JLabel();
         lblnik = new javax.swing.JLabel();
         lblnama = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jTextField2 = new javax.swing.JTextField();
         jButton7 = new javax.swing.JButton();
-        txtnik = new javax.swing.JTextField();
+        txtkrite = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblpenilaian = new javax.swing.JTable();
 
         jPanel1.setBackground(new java.awt.Color(248, 248, 255));
 
-        jButton4.setBackground(java.awt.Color.red);
+        jButton4.setBackground(java.awt.Color.gray);
         jButton4.setText("hapus");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,7 +104,7 @@ public class kriteria extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setBackground(java.awt.Color.yellow);
+        jButton5.setBackground(java.awt.Color.lightGray);
         jButton5.setText("Cetak");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -116,16 +128,13 @@ public class kriteria extends javax.swing.JPanel {
         lblnama.setForeground(new java.awt.Color(102, 102, 102));
         lblnama.setText("BOBOT");
 
-        jButton1.setBackground(java.awt.Color.green);
-        jButton1.setText("simpan");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jButton2.setBackground(java.awt.Color.lightGray);
+        jButton2.setText("ubah");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jButton2ActionPerformed(evt);
             }
         });
-
-        jButton2.setBackground(java.awt.Color.cyan);
-        jButton2.setText("ubah");
 
         jTextField2.setText(" ");
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -134,7 +143,7 @@ public class kriteria extends javax.swing.JPanel {
             }
         });
 
-        jButton7.setBackground(java.awt.SystemColor.controlHighlight);
+        jButton7.setBackground(java.awt.Color.gray);
         jButton7.setText("Clear");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -158,9 +167,8 @@ public class kriteria extends javax.swing.JPanel {
                             .addComponent(lblnik)
                             .addComponent(lbldata_karyawan)
                             .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
-                                .addComponent(txtnik, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE)
+                                .addComponent(txtkrite, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jTextField2, javax.swing.GroupLayout.Alignment.LEADING)))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
@@ -172,14 +180,12 @@ public class kriteria extends javax.swing.JPanel {
                 .addGap(35, 35, 35)
                 .addComponent(lblnik)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(txtnik, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtkrite, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(6, 6, 6)
                 .addComponent(lblnama)
                 .addGap(14, 14, 14)
                 .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(77, 77, 77)
                 .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton7, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -256,87 +262,73 @@ public class kriteria extends javax.swing.JPanel {
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
         // TODO add your handling code here:
+        try{
+            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("kriteriareport.jasper"),null,conn);
+            JasperViewer.viewReport(print, false);
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void tblpenilaianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpenilaianMouseClicked
         int bar = tblpenilaian.getSelectedRow();
 //        txtnik.setText(tabmode.getValueAt(bar, 0).toString());
-//        jTextField2.setText(tabmode.getValueAt(bar, 1).toString());
-//        jTextField1.setText(tabmode.getValueAt(bar, 2).toString());
+        txtkrite.setText(tabmode.getValueAt(bar, 0).toString());
+        jTextField2.setText(tabmode.getValueAt(bar, 1).toString());
 //        jComboBox2.getModel().setSelectedItem(tabmode.getValueAt(bar, 3).toString());
 //        jComboBox1.getModel().setSelectedItem(tabmode.getValueAt(bar, 4).toString());
 
         jButton4.setEnabled(true);
-        jButton1.setEnabled(false);
         //         System.out.println(jComboBox2.getSelectedItem());
         jButton2.setEnabled(true);
     }//GEN-LAST:event_tblpenilaianMouseClicked
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
-        txtnik.setText("");
+        txtkrite.setText("");
 //        jTextField1.setText("");
+        txtkrite.setText("");
         jTextField2.setText("");
 //        jComboBox2.getModel().setSelectedItem("Pilih Jenis Kelamin");
 //        jComboBox1.getModel().setSelectedItem("Pilih Jabatan");
-        jButton1.setEnabled(true);
         jButton2.setEnabled(false);
         jButton4.setEnabled(false);
         tblpenilaian.getSelectionModel().clearSelection();
     }//GEN-LAST:event_jButton7ActionPerformed
 
     private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
-        if(txtnik.getText().equals("2121..."))
+        if(txtkrite.getText().equals("2121..."))
         {
-            txtnik.setText(null);
-            txtnik.requestFocus();
+            txtkrite.setText(null);
+            txtkrite.requestFocus();
 //            resetPlaceholderStyle(txtnik);
         }        // TODO add your handling code here:
     }//GEN-LAST:event_jTextField2FocusGained
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-//        String  valid = jTextField1.getText().trim();
-//        String valid2 = jTextField2.getText().trim();
-//        if (valid.isEmpty() || valid2.isEmpty() ) {
-//            JOptionPane.showMessageDialog(null, "Harap Masukkan input", "Alert", JOptionPane.ERROR_MESSAGE);
-//        }else{
-//            try{
-//                String sql = "insert into karyawan values (?,?,?,?,?,?)";
-//                PreparedStatement stat = conn.prepareStatement(sql);
-//                //                stat.setInt(1, Integer.parseInt(txtnik.getText()));
-//                stat.setString(1, txtnik.getText());
-//                stat.setString(2, jTextField2.getText());
-//                stat.setString(3, jTextField1 .getText());
-//                //                stat.setString(4, jComboBox1.getSelectedItem().toString());
-//                stat.setString(4, jComboBox2.getSelectedItem().toString());
-//                stat.setString(5,"0");
-//                stat.setString(6,"0");
-//                //                stat.setString(6,"");
-//                System.out.println( stat);
-//                stat.executeUpdate();
-//                //                jTextField1.requestFocus();
-//                JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan");
-//            } catch (SQLException e) {
-//                JOptionPane.showMessageDialog(null, "Data Gagal Disimpan "+e);
-//            }
-//            try{
-//                String sql = "insert into jabatan values (?,?)";
-//                PreparedStatement stat = conn.prepareStatement(sql);
-//                stat.setString(1, txtnik .getText());
-//                stat.setString(2, jComboBox1.getSelectedItem().toString());
-//                stat.executeUpdate();
-//            }
-//            catch (SQLException e){
-//                JOptionPane.showMessageDialog(null, "Data Gagal Disimpan "+e);
-//            }
-//            //            bersih();
-//            datatabel();
-//            //        normalisasi();
-//        }
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+               try{
+            String sql = "update kriteria set nama_kriteria=?, bobot=? where nama_kriteria=?";
+            PreparedStatement stat = conn.prepareStatement(sql);
+            stat.setString(1, txtkrite.getText());
+            stat.setString(2, jTextField2.getText());
+            stat.setString(3, txtkrite.getText());
+            System.out.println(stat);
+            stat.executeUpdate();
+            txtkrite.requestFocus();
+            jTextField2.requestFocus();
+            
+            JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
+        }catch (SQLException e){
+            JOptionPane.showMessageDialog(null, "Data Gagal Diubah "+e);
+        }
+            bersih();
+//            IDOtomatis();
+            datatabel();
+//            normalisasi();
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton4;
     private javax.swing.JButton jButton5;
@@ -349,6 +341,6 @@ public class kriteria extends javax.swing.JPanel {
     private javax.swing.JLabel lblnama;
     private javax.swing.JLabel lblnik;
     public static volatile javax.swing.JTable tblpenilaian;
-    private javax.swing.JTextField txtnik;
+    private javax.swing.JTextField txtkrite;
     // End of variables declaration//GEN-END:variables
 }

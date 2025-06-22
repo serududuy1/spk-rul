@@ -20,6 +20,9 @@ import java.awt.Font;
 import javax.swing.JTextField;
 import static menuUtama.dashbor.lbljumlah_karyawan;
 import static menuUtama.dashbor.table1;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.view.JasperViewer;
 /**
  *
  * @author serud
@@ -47,7 +50,7 @@ public class karyawan extends javax.swing.JPanel {
     }
 
     public void datatabel(){              
-        Object[] Baris = {"NIK Karyawan","Nama Karyawan","Alamat","Jenis Kelamin","Jabatan"};
+        Object[] Baris = {"NIP Karyawan","Nama Karyawan","Alamat","Jenis Kelamin","Jabatan"};
         tabmode = new DefaultTableModel(null, Baris);
         tblkaryawan.setModel(tabmode);
 //        table1.setModel(tabmode);;
@@ -74,19 +77,9 @@ public class karyawan extends javax.swing.JPanel {
         int b = tabmode.getRowCount();
         lbljumlah_karyawan.setText(""+b);    //label total karyawan yg diform karyawan,total data didatbel dipanggil ke label total
 //        lbltotal_karyawan.setText(""+b); //label total karyawan yg dimenu utama,total data didata tabel dipanggil ke label total
-    }  
-//    public void tabelModelNormalisasi(){
-//       tabelNormalisasi = new DefaultTableModel();
-//       tabelNormalisasi.addColumn("NIK");
-//       tabelNormalisasi.addColumn("Nama");
-//       tabelNormalisasi.addColumn("C1");
-//       tabelNormalisasi.addColumn("C2");
-//       tabelNormalisasi.addColumn("C3");
-//       tabelNormalisasi.addColumn("C4");
-//       tblnormalisasi.setModel(tabelNormalisasi);
-//    } 
+    } 
     public void caridata(String key){
-        Object[] Baris = {"NIK Karyawan","Nama Karyawan","Alamat","Jenis Kelamin","Jabatan"};
+        Object[] Baris = {"NIP Karyawan","Nama Karyawan","Alamat","Jenis Kelamin","Jabatan"};
         tabmode = new DefaultTableModel(null, Baris);
         tblkaryawan.setModel(tabmode);
         String sql = "select  karyawan.nik, karyawan.nama, karyawan.alamat, karyawan.jenis_kelamin, "
@@ -197,7 +190,7 @@ public class karyawan extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(248, 248, 255));
 
-        jButton4.setBackground(java.awt.Color.red);
+        jButton4.setBackground(java.awt.Color.gray);
         jButton4.setText("hapus");
         jButton4.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -205,7 +198,7 @@ public class karyawan extends javax.swing.JPanel {
             }
         });
 
-        jButton5.setBackground(java.awt.Color.yellow);
+        jButton5.setBackground(java.awt.Color.lightGray);
         jButton5.setText("Cetak");
         jButton5.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -240,7 +233,7 @@ public class karyawan extends javax.swing.JPanel {
         lblnik.setBackground(new java.awt.Color(204, 204, 204));
         lblnik.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
         lblnik.setForeground(new java.awt.Color(102, 102, 102));
-        lblnik.setText("NIK Karyawan");
+        lblnik.setText("NIP Karyawan");
 
         lblnama.setBackground(new java.awt.Color(204, 204, 204));
         lblnama.setFont(new java.awt.Font("Century Gothic", 0, 15)); // NOI18N
@@ -262,7 +255,7 @@ public class karyawan extends javax.swing.JPanel {
         lbljabatan.setForeground(new java.awt.Color(102, 102, 102));
         lbljabatan.setText("Jabatan");
 
-        jButton1.setBackground(java.awt.Color.green);
+        jButton1.setBackground(java.awt.Color.gray);
         jButton1.setText("simpan");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -270,7 +263,7 @@ public class karyawan extends javax.swing.JPanel {
             }
         });
 
-        jButton2.setBackground(java.awt.Color.cyan);
+        jButton2.setBackground(java.awt.Color.lightGray);
         jButton2.setText("ubah");
         jButton2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -289,7 +282,7 @@ public class karyawan extends javax.swing.JPanel {
 
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Kelamin", "Laki-Laki", "Perempuan" }));
 
-        jButton7.setBackground(java.awt.SystemColor.controlHighlight);
+        jButton7.setBackground(java.awt.Color.gray);
         jButton7.setText("reset");
         jButton7.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -467,7 +460,13 @@ public class karyawan extends javax.swing.JPanel {
     }//GEN-LAST:event_tblkaryawanMouseClicked
 
     private void jButton5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton5ActionPerformed
-        // TODO add your handling code here:
+        try{
+            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("reportkaryawan.jasper"),null,conn);
+            JasperViewer.viewReport(print, false);
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
     }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton7ActionPerformed
@@ -534,20 +533,26 @@ public class karyawan extends javax.swing.JPanel {
     }//GEN-LAST:event_txtnamaFocusGained
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        int OK = JOptionPane.showConfirmDialog(null, "Hapus", "Konfirmasi Dialog", JOptionPane.YES_NO_OPTION);
-        if(OK==0){
-            String sql = "delete from karyawan where nik = '"+txtnik.getText()+"'";
-//            String sql2 = "delete from jataban where nik = '"+txtnik.getText()+"'";
-            try{
-                PreparedStatement stat = conn.prepareStatement(sql);
-//                PreparedStatement stat2 = conn.prepareStatement(sql2);
-                stat.executeUpdate();
-//                stat2.executeUpdate();
-                JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
-                txtnik.requestFocus();
-            }catch (SQLException e){
-                JOptionPane.showMessageDialog(null, "Data Gagal Dihapus "+e);
+        int opsi = JOptionPane.showConfirmDialog(null, "Benarkah anda ingin menghapus data ini ?", "Penghapusan Data", JOptionPane.YES_NO_OPTION);
+        if (opsi == JOptionPane.YES_OPTION){
+            int OK = JOptionPane.showConfirmDialog(null, "Hapus", "Konfirmasi Dialog", JOptionPane.YES_NO_OPTION);
+            if(OK==0){
+                String sql = "delete from karyawan where nik = '"+txtnik.getText()+"'";
+    //            String sql2 = "delete from jataban where nik = '"+txtnik.getText()+"'";
+                try{
+                    PreparedStatement stat = conn.prepareStatement(sql);
+    //                PreparedStatement stat2 = conn.prepareStatement(sql2);
+                    stat.executeUpdate();
+    //                stat2.executeUpdate();
+                    JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
+                    txtnik.requestFocus();
+                }catch (SQLException e){
+                    JOptionPane.showMessageDialog(null, "Data Gagal Dihapus "+e);
+                }
             }
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "DATA TIDAK JADI DIHAPUS !");
         }
         bersih();
         datatabel();

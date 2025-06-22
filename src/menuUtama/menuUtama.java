@@ -10,7 +10,7 @@ import java.sql.Connection;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import Karyawan.karyawan;
-import Karyawan.penilaian;
+import Karyawan.penilaian_pul;
 import Karyawan.perangkingan;
 import menuUtama.dashbor;
 import Karyawan.kriteria;
@@ -25,7 +25,7 @@ public class menuUtama extends javax.swing.JFrame {
     //fotm
     dashbor de;
     karyawan kr;
-    penilaian pn;
+    penilaian_pul pn;
     perangkingan pr;
     kriteria kt;
 //    about at;
@@ -42,7 +42,7 @@ public class menuUtama extends javax.swing.JFrame {
         //jpanel form namanya diubah menjadi variabel
         de = new dashbor();
         kr = new Karyawan.karyawan();
-        pn = new penilaian();
+        pn = new penilaian_pul();
         pr = new perangkingan();
         kt = new kriteria();
 //        at = new about();

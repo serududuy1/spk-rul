@@ -17,9 +17,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JScrollBar;
 import javax.swing.table.DefaultTableModel;
 import koneksi.koneksi;
+import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.view.JasperViewer;
 
 /**
  *
@@ -181,6 +183,7 @@ public void normalisasi(){
         ));
         jScrollPane1.setViewportView(tblperingkat);
 
+        jButton1.setBackground(java.awt.Color.gray);
         jButton1.setText("Cek Normalisasi");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -202,8 +205,15 @@ public void normalisasi(){
         ));
         jScrollPane2.setViewportView(tblnormalisasi);
 
+        jButton2.setBackground(java.awt.Color.gray);
         jButton2.setText("Cetak");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
+        jButton3.setBackground(java.awt.Color.lightGray);
         jButton3.setText("Cek Peringkat'");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -276,6 +286,16 @@ public void normalisasi(){
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
          cariperingkat();
     }//GEN-LAST:event_jButton3ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        try{
+            JasperPrint print = JasperFillManager.fillReport(getClass().getResourceAsStream("perangkinganreport.jasper"),null,conn);
+            JasperViewer.viewReport(print, false);
+
+        }catch(Exception e){
+            JOptionPane.showMessageDialog(null, e);
+        }
+    }//GEN-LAST:event_jButton2ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
