@@ -69,7 +69,7 @@ public class kriteria extends javax.swing.JPanel {
         txtkrite.setText("");
         jTextField2.setText("");
         jButton2.setEnabled(false);
-        jButton4.setEnabled(false);
+//        jButton4.setEnabled(false);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -260,7 +260,7 @@ public class kriteria extends javax.swing.JPanel {
 //        jComboBox2.getModel().setSelectedItem(tabmode.getValueAt(bar, 3).toString());
 //        jComboBox1.getModel().setSelectedItem(tabmode.getValueAt(bar, 4).toString());
 
-        jButton4.setEnabled(true);
+//        jButton4.setEnabled(true);
         //         System.out.println(jComboBox2.getSelectedItem());
         jButton2.setEnabled(true);
     }//GEN-LAST:event_tblpenilaianMouseClicked
@@ -273,7 +273,7 @@ public class kriteria extends javax.swing.JPanel {
 //        jComboBox2.getModel().setSelectedItem("Pilih Jenis Kelamin");
 //        jComboBox1.getModel().setSelectedItem("Pilih Jabatan");
         jButton2.setEnabled(false);
-        jButton4.setEnabled(false);
+//        jButton4.setEnabled(false);
         tblpenilaian.getSelectionModel().clearSelection();
     }//GEN-LAST:event_jButton7ActionPerformed
 

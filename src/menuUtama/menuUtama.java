@@ -5,10 +5,29 @@
  */
 package menuUtama;
 
+import java.sql.ResultSet;
+import java.util.Locale;
+import javax.swing.JOptionPane;
 import java.awt.Color;
-import java.sql.Connection;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JLabel;
+import java.util.ArrayList;
+import java.util.Map;
+import javax.swing.JScrollBar;
+import net.sf.jasperreports.engine.JasperCompileManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.JasperReport;
+import net.sf.jasperreports.engine.design.JasperDesign;
+import net.sf.jasperreports.engine.xml.JRXmlLoader;
+import net.sf.jasperreports.view.JasperViewer;
+import koneksi.koneksi;
+import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.util.HashMap;
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 import Karyawan.karyawan;
 import Karyawan.penilaian_pul;
 import Karyawan.perangkingan;
@@ -60,6 +79,15 @@ public class menuUtama extends javax.swing.JFrame {
         pr.setVisible(false);
         kt.setVisible(false);
 //        at.setVisible(false);
+    }
+    public void user() {
+        btndashbord.setVisible(true);
+        btnkaryawan.setVisible(true);
+        btnrangking.setVisible(false);
+    }
+    public void admin() {
+        btndashbord.setVisible(true);
+        btnrangking.setVisible(true);
     }
     /**
      * This method is called from within the constructor to initialize the form.
