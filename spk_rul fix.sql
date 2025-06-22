@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 17 Jun 2025 pada 08.42
+-- Waktu pembuatan: 22 Jun 2025 pada 16.26
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.0.30
 
@@ -33,24 +33,23 @@ CREATE TABLE `bobot` (
   `c1` float NOT NULL,
   `c2` float NOT NULL,
   `c3` float NOT NULL,
-  `c4` float NOT NULL,
-  `label_c1` varchar(255) NOT NULL,
-  `label_c2` varchar(255) NOT NULL,
-  `label_c3` varchar(255) NOT NULL,
-  `label_c4` varchar(255) NOT NULL
+  `c4` float NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data untuk tabel `bobot`
 --
 
-INSERT INTO `bobot` (`id`, `nik`, `c1`, `c2`, `c3`, `c4`, `label_c1`, `label_c2`, `label_c3`, `label_c4`) VALUES
-(2, 8945, 1, 1, 1, 1, 'sangat baik', 'sangat baik', 'sangat baik', 'sangat baik'),
-(3, 3242, 0.8, 0.6, 1, 1, 'baik', 'cukup', 'sangat baik', 'sangat baik'),
-(4, 5453, 0.4, 0.4, 0.4, 0.8, 'kurang', 'kurang', 'kurang', 'baik'),
-(5, 3, 0.8, 0.6, 0.4, 1, 'baik', 'cukup', 'kurang', 'sangat baik'),
-(6, 345, 1, 1, 1, 1, 'sangat baik', 'sangat baik', 'sangat baik', 'sangat baik'),
-(7, 1114, 0.6, 0.8, 0.4, 0.4, 'cukup', 'baik', 'kurang', 'kurang');
+INSERT INTO `bobot` (`id`, `nik`, `c1`, `c2`, `c3`, `c4`) VALUES
+(3, 3242, 80, 60, 100, 100),
+(4, 5453, 40, 40, 40, 80),
+(5, 3, 80, 60, 40, 100),
+(7, 1114, 60, 80, 40, 40),
+(10, 2, 90, 89, 67, 45),
+(12, 324, 90, 89, 68, 57),
+(13, 8945, 50, 60, 60, 34),
+(14, 5, 50, 50, 50, 50),
+(15, 345, 7, 80, 70, 90);
 
 -- --------------------------------------------------------
 
@@ -68,12 +67,15 @@ CREATE TABLE `hasil` (
 --
 
 INSERT INTO `hasil` (`nik`, `nilai`) VALUES
-(3, 0.98),
-(345, 1.4),
-(1114, 0.77),
-(3242, 1.19),
-(5453, 0.7),
-(8945, 1.4);
+(2, 1.092),
+(3, 1.03707),
+(5, 0.741074),
+(324, 1.1375),
+(345, 0.901829),
+(1114, 0.82794),
+(3242, 1.24707),
+(5453, 0.732859),
+(8945, 0.7594);
 
 -- --------------------------------------------------------
 
@@ -93,7 +95,6 @@ CREATE TABLE `jabatan` (
 INSERT INTO `jabatan` (`nik`, `jabatan`) VALUES
 (2, 'akunting'),
 (3, 'teknisi'),
-(4, 'teknisi'),
 (5, 'karyawan'),
 (324, 'Spv'),
 (5453, 'Teknisi');
@@ -118,7 +119,6 @@ CREATE TABLE `karyawan` (
 INSERT INTO `karyawan` (`nik`, `nama`, `alamat`, `jenis_kelamin`) VALUES
 (2, 'sinta', 'jakarta selatan', 'Perempuan'),
 (3, 'bambang', 'jakarta selatan', 'Laki-Laki'),
-(4, 'jono', 'jakarta selatan', 'Laki-Laki'),
 (5, 'kurnia', 'jakarta utara', 'Laki-Laki'),
 (324, ' dikis', 'jakarta', 'Laki-Laki'),
 (345, ' nina', 'depok', 'Perempuan'),
@@ -150,51 +150,6 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `bobot`, `kode_kriteria`
 (2, 'Sikap', 0.35, 'C2'),
 (3, 'Kedisiplinan', 0.35, 'C3'),
 (4, 'Hasil Kerja', 0.35, 'C4');
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `penilaian_karyawan`
---
-
-CREATE TABLE `penilaian_karyawan` (
-  `id_penilaian` int(11) NOT NULL,
-  `nik` int(11) NOT NULL,
-  `kode_kriteria` varchar(255) NOT NULL,
-  `nilai` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `penilaian_karyawan`
---
-
-INSERT INTO `penilaian_karyawan` (`id_penilaian`, `nik`, `kode_kriteria`, `nilai`) VALUES
-(5, 8945, 'C1', 90),
-(6, 8945, 'C2', 87),
-(7, 8945, 'C3', 90),
-(8, 8945, 'C4', 87);
-
--- --------------------------------------------------------
-
---
--- Struktur dari tabel `rating_kecocokan`
---
-
-CREATE TABLE `rating_kecocokan` (
-  `id_rating` varchar(255) NOT NULL,
-  `nik` int(11) NOT NULL,
-  `nilai_jam_kerja` float NOT NULL,
-  `nilai_absensi` float NOT NULL,
-  `nilai_kerapihan` float NOT NULL,
-  `nilai_keterlambatan` float NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data untuk tabel `rating_kecocokan`
---
-
-INSERT INTO `rating_kecocokan` (`id_rating`, `nik`, `nilai_jam_kerja`, `nilai_absensi`, `nilai_kerapihan`, `nilai_keterlambatan`) VALUES
-('PN0001', 2, 1, 1, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -257,21 +212,6 @@ ALTER TABLE `kriteria`
   ADD KEY `kode_kriteria` (`kode_kriteria`);
 
 --
--- Indeks untuk tabel `penilaian_karyawan`
---
-ALTER TABLE `penilaian_karyawan`
-  ADD PRIMARY KEY (`id_penilaian`),
-  ADD KEY `nik` (`nik`),
-  ADD KEY `penilaian_kriteria_ibfk_1` (`kode_kriteria`);
-
---
--- Indeks untuk tabel `rating_kecocokan`
---
-ALTER TABLE `rating_kecocokan`
-  ADD PRIMARY KEY (`id_rating`),
-  ADD KEY `nik` (`nik`);
-
---
 -- Indeks untuk tabel `sub_kriteria`
 --
 ALTER TABLE `sub_kriteria`
@@ -285,19 +225,13 @@ ALTER TABLE `sub_kriteria`
 -- AUTO_INCREMENT untuk tabel `bobot`
 --
 ALTER TABLE `bobot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT untuk tabel `karyawan`
 --
 ALTER TABLE `karyawan`
   MODIFY `nik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123345;
-
---
--- AUTO_INCREMENT untuk tabel `penilaian_karyawan`
---
-ALTER TABLE `penilaian_karyawan`
-  MODIFY `id_penilaian` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_kriteria`
@@ -326,19 +260,6 @@ ALTER TABLE `hasil`
 --
 ALTER TABLE `jabatan`
   ADD CONSTRAINT `jabatan_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `karyawan` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `penilaian_karyawan`
---
-ALTER TABLE `penilaian_karyawan`
-  ADD CONSTRAINT `penilaian_karyawan_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `karyawan` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `penilaian_kriteria_ibfk_1` FOREIGN KEY (`kode_kriteria`) REFERENCES `kriteria` (`kode_kriteria`) ON DELETE CASCADE ON UPDATE CASCADE;
-
---
--- Ketidakleluasaan untuk tabel `rating_kecocokan`
---
-ALTER TABLE `rating_kecocokan`
-  ADD CONSTRAINT `rating_kecocokan_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `karyawan` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
