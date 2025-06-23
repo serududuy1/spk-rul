@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 22 Jun 2025 pada 20.05
+-- Waktu pembuatan: 23 Jun 2025 pada 12.37
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.0.30
 
@@ -62,15 +62,11 @@ CREATE TABLE `bobot` (
 --
 
 INSERT INTO `bobot` (`id`, `nik`, `c1`, `c2`, `c3`, `c4`) VALUES
-(3, 3242, 80, 60, 100, 100),
-(4, 5453, 40, 40, 40, 80),
-(5, 3, 80, 60, 40, 100),
-(7, 1114, 60, 80, 40, 40),
-(10, 2, 90, 89, 67, 45),
-(12, 324, 90, 89, 68, 57),
-(13, 8945, 50, 60, 60, 34),
-(14, 5, 50, 50, 50, 50),
-(15, 345, 7, 80, 70, 90);
+(23, 2153, 60, 70, 80, 80),
+(25, 2750, 70, 95, 60, 85),
+(26, 2525, 65, 80, 90, 70),
+(27, 2642, 80, 75, 65, 70),
+(28, 3190, 85, 60, 70, 80);
 
 -- --------------------------------------------------------
 
@@ -88,15 +84,11 @@ CREATE TABLE `hasil` (
 --
 
 INSERT INTO `hasil` (`nik`, `nilai`) VALUES
-(2, 1.092),
-(3, 1.03707),
-(5, 0.741074),
-(324, 1.1375),
-(345, 0.901829),
-(1114, 0.82794),
-(3242, 1.24707),
-(5453, 0.732859),
-(8945, 0.7594);
+(2153, 1.12718),
+(2525, 1.18461),
+(2642, 1.13073),
+(2750, 1.20212),
+(3190, 1.15439);
 
 -- --------------------------------------------------------
 
@@ -114,11 +106,11 @@ CREATE TABLE `jabatan` (
 --
 
 INSERT INTO `jabatan` (`nik`, `jabatan`) VALUES
-(2, 'akunting'),
-(3, 'teknisi'),
-(5, 'karyawan'),
-(324, 'Spv'),
-(5453, 'Teknisi');
+(2153, 'Chief Store S&D MH.Thamrin'),
+(2525, 'Mekanik S&D Wahidin Baru'),
+(2642, 'Chief Store S&D Mayor Oking Baru'),
+(2750, 'Mekanik S&D Sudirman'),
+(3190, 'Chief Store S&D Pamulasarih');
 
 -- --------------------------------------------------------
 
@@ -138,16 +130,11 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`nik`, `nama`, `alamat`, `jenis_kelamin`) VALUES
-(2, 'sinta', 'jakarta selatan', 'Perempuan'),
-(3, 'bambang', 'jakarta selatan', 'Laki-Laki'),
-(5, 'kurnia', 'jakarta utara', 'Laki-Laki'),
-(324, ' dikis', 'jakarta', 'Laki-Laki'),
-(345, ' nina', 'depok', 'Perempuan'),
-(543, ' diki', 'semarang', 'Laki-Laki'),
-(1114, 'irfan', 'pesanggrahan', 'Laki-Laki'),
-(3242, ' ardi', 'tangerang', 'Laki-Laki'),
-(5453, 'bakri', 'jakarta selatan', 'Laki-Laki'),
-(8945, ' anto', 'papua', 'Laki-Laki');
+(2153, ' Syahid Mahardika', 'Semarang', 'Chief Store S&D MH.Thamrin'),
+(2525, 'Rizal Sugiarto', 'Semarang ', 'Mekanik S&D Wahidin Baru'),
+(2642, 'Israji', 'Cibinong', 'Chief Store S&D Mayor Oking Baru'),
+(2750, 'Hermanto', 'Semarang ', 'Mekanik S&D Sudirman'),
+(3190, 'Muhamad Abdul Rokhim', 'Semarang', 'Chief Store S&D Pamulasarih');
 
 -- --------------------------------------------------------
 
@@ -171,6 +158,31 @@ INSERT INTO `kriteria` (`id_kriteria`, `nama_kriteria`, `bobot`, `kode_kriteria`
 (2, 'Sikap', 0.35, 'C2'),
 (3, 'Kedisiplinan', 0.35, 'C3'),
 (4, 'Hasil Kerja', 0.35, 'C4');
+
+-- --------------------------------------------------------
+
+--
+-- Struktur dari tabel `rating_kecocokan`
+--
+
+CREATE TABLE `rating_kecocokan` (
+  `nik` int(11) NOT NULL,
+  `nilai_c1` int(11) NOT NULL,
+  `nilai_c2` int(11) NOT NULL,
+  `nilai_c3` int(11) NOT NULL,
+  `nilai_c4` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data untuk tabel `rating_kecocokan`
+--
+
+INSERT INTO `rating_kecocokan` (`nik`, `nilai_c1`, `nilai_c2`, `nilai_c3`, `nilai_c4`) VALUES
+(2153, 60, 70, 80, 80),
+(2750, 70, 95, 60, 85),
+(2525, 65, 80, 90, 70),
+(2642, 80, 75, 65, 70),
+(3190, 85, 60, 70, 80);
 
 -- --------------------------------------------------------
 
@@ -239,6 +251,12 @@ ALTER TABLE `kriteria`
   ADD KEY `kode_kriteria` (`kode_kriteria`);
 
 --
+-- Indeks untuk tabel `rating_kecocokan`
+--
+ALTER TABLE `rating_kecocokan`
+  ADD KEY `rat_fk` (`nik`);
+
+--
 -- Indeks untuk tabel `sub_kriteria`
 --
 ALTER TABLE `sub_kriteria`
@@ -258,13 +276,7 @@ ALTER TABLE `admin`
 -- AUTO_INCREMENT untuk tabel `bobot`
 --
 ALTER TABLE `bobot`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
-
---
--- AUTO_INCREMENT untuk tabel `karyawan`
---
-ALTER TABLE `karyawan`
-  MODIFY `nik` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=123345;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT untuk tabel `sub_kriteria`
@@ -293,6 +305,12 @@ ALTER TABLE `hasil`
 --
 ALTER TABLE `jabatan`
   ADD CONSTRAINT `jabatan_ibfk_1` FOREIGN KEY (`nik`) REFERENCES `karyawan` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Ketidakleluasaan untuk tabel `rating_kecocokan`
+--
+ALTER TABLE `rating_kecocokan`
+  ADD CONSTRAINT `rat_fk` FOREIGN KEY (`nik`) REFERENCES `bobot` (`nik`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

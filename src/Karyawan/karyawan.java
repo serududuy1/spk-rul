@@ -118,44 +118,105 @@ public class karyawan extends javax.swing.JPanel {
         txtalamat.setText("");
         txtnama.setText("");
         jComboBox2.getModel().setSelectedItem("Pilih Jenis Kelamin");
-        jComboBox1.getModel().setSelectedItem("Pilih Jabatan");
+        txtjabatan.setText("");
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
         jButton4.setEnabled(false);
     }
-//    public void normalisasi(){
-//        LinkedList max = new LinkedList();
-//        LinkedList mn = new LinkedList();            
-//        try{
-//              String sql = "select max(nilai_jam_kerja), max(nilai_absensi), max(nilai_kerapihan), min(nilai_keterlambatan) from rating_kecocokan ";
-//            java.sql.Statement stat = conn.createStatement();
-//            ResultSet normalisasi = stat.executeQuery(sql);
-//            while (normalisasi.next()){
-//                max.add(normalisasi.getString(1));
-//                max.add(normalisasi.getString(2));
-//                max.add(normalisasi.getString(3));
-//                max.add(normalisasi.getString(4));
-//            }
-//            String sqli = "select rating_kecocokan.nilai_jam_kerja, rating_kecocokan.nilai_absensi, rating_kecocokan.nilai_kerapihan, rating_kecocokan.nilai_keterlambatan, "
-//                    + "karyawan.nik, karyawan.nama "
-//                    + "from rating_kecocokan INNER JOIN karyawan ON rating_kecocokan.nik=karyawan.nik";
-//            ResultSet res2 = stat.executeQuery(sqli);
-//            tabelModelNormalisasi();
-//            while (res2.next()){
-//                    tabelNormalisasi.addRow(new Object[]{
-//                    res2.getString("nik"),
-//                    res2.getString("nama"),
-//                    (res2.getFloat("nilai_jam_kerja")/Float.valueOf(max.get(0).toString())),
-//                    (res2.getFloat("nilai_absensi")/Float.valueOf(max.get(1).toString())),
-//                    (res2.getFloat("nilai_kerapihan")/Float.valueOf(max.get(2).toString())),
-//                    (Float.valueOf(max.get(3).toString())/res2.getFloat("nilai_keterlambatan"))});
-//                    //(res2.getFloat("keterlambatan")/Float.valueOf(max.get(3).toString()))});
-//                            //(Float.valueOf(max.get(3).toString())/res2.getFloat("keterlamban"))});
-//            }
-//        } catch (SQLException ex){
-//            JOptionPane.showMessageDialog(this, ex);
-//        }
-//    }
+    protected void datatabel_penilaian(){              
+       Object[] Baris = {"ID Penilaian","NIK","Nama","Jam Kerja","Absensi","Kerapihan", "Keterlambatan"};
+        tabelpenilaian = new DefaultTableModel(null, Baris);
+        tblpenilaian.setModel(tabelpenilaian);
+        try{
+            String sql = "select penilaian_karyawan.id_penilaian, penilaian_karyawan.jam_kerja, penilaian_karyawan.absensi, penilaian_karyawan.kerapihan, "
+                    + "penilaian_karyawan.keterlambatan, karyawan.nik, karyawan.nama from penilaian_karyawan "
+                    + "INNER JOIN karyawan ON penilaian_karyawan.nik=karyawan.nik";
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            while(hasil.next()){
+                String a = hasil.getString("id_penilaian");
+                String b = hasil.getString("nik");
+                String c = hasil.getString("nama"); 
+                String d = hasil.getString("jam_kerja"); 
+                String e = hasil.getString("absensi");
+                String f = hasil.getString("kerapihan"); 
+                String g = hasil.getString("keterlambatan");
+                String[] data = {a,b,c,d,e,f,g};
+                tabelpenilaian.addRow(data); 
+            }
+        }catch (Exception e){
+        }
+        
+        //int b = tabmode.getRowCount();
+        //lbltotal.setText(""+b);    //label total karyawan yg diform karyawan,total data didatbel dipanggil ke label total
+        //lbltotal_karyawan.setText(""+b); //label total karyawan yg dimenu utama,total data didata tabel dipanggil ke label total
+    }   
+    
+    //objeck tabel normalisasi form rangking
+    public void tabelModelNormalisasi(){
+       tabelNormalisasi = new DefaultTableModel();
+       tabelNormalisasi.addColumn("NIK");
+       tabelNormalisasi.addColumn("Nama");
+       tabelNormalisasi.addColumn("C1");
+       tabelNormalisasi.addColumn("C2");
+       tabelNormalisasi.addColumn("C3");
+       tabelNormalisasi.addColumn("C4");
+       tblnormalisasi.setModel(tabelNormalisasi);
+    } 
+    //tabel normalisasi form rangking
+    public void normalisasi(){
+        LinkedList max = new LinkedList();
+        LinkedList mn = new LinkedList();            
+        try{
+              String sql = "select max(nilai_c1), max(nilai_c2), max(nilai_c3), min(nilai_c4) from rating_kecocokan ";
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet normalisasi = stat.executeQuery(sql);
+            while (normalisasi.next()){
+                max.add(normalisasi.getString(1));
+                max.add(normalisasi.getString(2));
+                max.add(normalisasi.getString(3));
+                max.add(normalisasi.getString(4));
+            }
+            String sqli = "select rating_kecocokan.nilai_c1.nilai_c2, rating_kecocokan.nilai_c3, rating_kecocokan.nilai_c4, "
+                    + "karyawan.nik, karyawan.nama "
+                    + "from rating_kecocokan INNER JOIN karyawan ON rating_kecocokan.nik=karyawan.nik";
+            ResultSet res2 = stat.executeQuery(sqli);
+            tabelModelNormalisasi();
+            while (res2.next()){
+                    tabelNormalisasi.addRow(new Object[]{
+                    res2.getString("nik"),
+                    res2.getString("nama"),
+                    (res2.getFloat("nilai_jam_kerja")/Float.valueOf(max.get(0).toString())),
+                    (res2.getFloat("nilai_absensi")/Float.valueOf(max.get(1).toString())),
+                    (res2.getFloat("nilai_kerapihan")/Float.valueOf(max.get(2).toString())),
+                    (Float.valueOf(max.get(3).toString())/res2.getFloat("nilai_keterlambatan"))});
+                    //(res2.getFloat("keterlambatan")/Float.valueOf(max.get(3).toString()))});
+                            //(Float.valueOf(max.get(3).toString())/res2.getFloat("keterlamban"))});
+            }
+        } catch (SQLException ex){
+            JOptionPane.showMessageDialog(this, ex);
+        }
+    }
+    
+    //tabel peringkat form rangking
+    public void tabelmodelPeringkat(){
+        Object[] Baris = {"NIK","Nama Karyawan","Nilai"};
+        tabelPeringkat = new DefaultTableModel(null, Baris);
+        tblperingkat.setModel(tabelPeringkat);
+       try{
+            String mysql ="SELECT hasil.nilai, karyawan.nik, karyawan.nama from hasil INNER JOIN karyawan ON hasil.nik=karyawan.nik ORDER BY nilai desc";
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet peringkat = stat.executeQuery(mysql);
+            while (peringkat.next()){
+                String a = peringkat.getString("nik");
+                String b = peringkat.getString("nama");
+                String c = peringkat.getString("nilai"); 
+                String[] data = {a,b,c};
+               tabelPeringkat.addRow(data); 
+            }
+        }catch (Exception e){
+        }    
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -180,10 +241,10 @@ public class karyawan extends javax.swing.JPanel {
         jButton2 = new javax.swing.JButton();
         txtalamat = new javax.swing.JTextField();
         txtnama = new javax.swing.JTextField();
-        jComboBox1 = new javax.swing.JComboBox<>();
         jComboBox2 = new javax.swing.JComboBox<>();
         jButton7 = new javax.swing.JButton();
         txtnik = new javax.swing.JTextField();
+        txtjabatan = new javax.swing.JTextField();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblkaryawan = new javax.swing.JTable();
         jButton6 = new javax.swing.JButton();
@@ -278,8 +339,6 @@ public class karyawan extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jabatan", "Manager", "Accounting", "Spv", "Teknisi", "Karyawan" }));
-
         jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Jenis Kelamin", "Laki-Laki", "Perempuan" }));
 
         jButton7.setBackground(java.awt.Color.gray);
@@ -311,11 +370,11 @@ public class karyawan extends javax.swing.JPanel {
                             .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addComponent(jButton2, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jButton1, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jComboBox1, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                 .addComponent(jComboBox2, javax.swing.GroupLayout.Alignment.LEADING, 0, 252, Short.MAX_VALUE)
                                 .addComponent(txtnik, javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(txtalamat, javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING)))))
+                                .addComponent(txtnama, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(txtjabatan, javax.swing.GroupLayout.DEFAULT_SIZE, 252, Short.MAX_VALUE))))
                 .addContainerGap(80, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
@@ -341,8 +400,8 @@ public class karyawan extends javax.swing.JPanel {
                 .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lbljabatan)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(4, 4, 4)
+                .addComponent(txtjabatan, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
@@ -451,8 +510,7 @@ public class karyawan extends javax.swing.JPanel {
         txtnama.setText(tabmode.getValueAt(bar, 1).toString());
         txtalamat.setText(tabmode.getValueAt(bar, 2).toString());
         jComboBox2.getModel().setSelectedItem(tabmode.getValueAt(bar, 3).toString());
-        jComboBox1.getModel().setSelectedItem(tabmode.getValueAt(bar, 4).toString());
-        txtnik.setEditable(false);
+        txtjabatan.setText(tabmode.getValueAt(bar, 4).toString());
         jButton4.setEnabled(true);
         jButton1.setEnabled(false);
 //         System.out.println(jComboBox2.getSelectedItem());
@@ -474,7 +532,7 @@ public class karyawan extends javax.swing.JPanel {
         txtalamat.setText("");
         txtnama.setText("");
         jComboBox2.getModel().setSelectedItem("Pilih Jenis Kelamin");
-        jComboBox1.getModel().setSelectedItem("Pilih Jabatan");
+        txtjabatan.setText("");
         jButton1.setEnabled(true);
         jButton2.setEnabled(false);
         jButton4.setEnabled(false);
@@ -488,16 +546,15 @@ public class karyawan extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null, "Harap Masukkan input", "Alert", JOptionPane.ERROR_MESSAGE);
         }else{
             try{
-                String sql = "insert into karyawan values (?,?,?,?,?,?)";
+                String sql = "insert into karyawan values (?,?,?,?)";
                 PreparedStatement stat = conn.prepareStatement(sql);
 //                stat.setInt(1, Integer.parseInt(txtnik.getText()));
                 stat.setString(1, txtnik.getText());
                 stat.setString(2, txtnama.getText());
                 stat.setString(3, txtalamat .getText());
+                stat.setString(4, txtjabatan .getText());
 //                stat.setString(4, jComboBox1.getSelectedItem().toString());
-                stat.setString(4, jComboBox2.getSelectedItem().toString());
-                stat.setString(5,"0");
-                stat.setString(6,"0");
+//                stat.setString(4, jComboBox2.getSelectedItem().toString());
 //                stat.setString(6,"");
                 System.out.println( stat);
                 stat.executeUpdate();
@@ -510,15 +567,14 @@ public class karyawan extends javax.swing.JPanel {
                 String sql = "insert into jabatan values (?,?)";
                 PreparedStatement stat = conn.prepareStatement(sql);
                 stat.setString(1, txtnik .getText());
-                stat.setString(2, jComboBox1.getSelectedItem().toString());
+                stat.setString(2, txtjabatan .getText());
                     stat.executeUpdate();
             }
             catch (SQLException e){
                 JOptionPane.showMessageDialog(null, "Data Gagal Disimpan "+e);
             }
-//            bersih();
+            bersih();
             datatabel();
-    //        normalisasi();
         }
         
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -556,8 +612,6 @@ public class karyawan extends javax.swing.JPanel {
         }
         bersih();
         datatabel();
-//        normalisasi();
-//        datatabel_penilaian();
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -575,7 +629,7 @@ public class karyawan extends javax.swing.JPanel {
             String sql2 = "update jabatan set nik=?, jabatan=? where nik=?";
             PreparedStatement stat2 = conn.prepareStatement(sql2);
             stat2.setString(1, txtnik.getText());
-            stat2.setString(2, jComboBox1.getSelectedItem().toString());
+            stat2.setString(2, txtjabatan.getText());
             stat2.setString(3, txtnik.getText());
             stat2.executeUpdate();
             JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
@@ -596,7 +650,6 @@ public class karyawan extends javax.swing.JPanel {
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton6;
     private javax.swing.JButton jButton7;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
@@ -609,6 +662,7 @@ public class karyawan extends javax.swing.JPanel {
     public static volatile javax.swing.JTable tblkaryawan;
     private javax.swing.JTextField txtalamat;
     private javax.swing.JTextField txtcari;
+    private javax.swing.JTextField txtjabatan;
     private javax.swing.JTextField txtnama;
     private javax.swing.JTextField txtnik;
     // End of variables declaration//GEN-END:variables

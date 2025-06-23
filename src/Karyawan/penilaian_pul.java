@@ -86,7 +86,34 @@ public class penilaian_pul extends javax.swing.JPanel {
         lbljumlah_karyawan.setText(""+b);    //label total karyawan yg diform karyawan,total data didatbel dipanggil ke label total
 //        lbltotal_karyawan.setText(""+b); //label total karyawan yg dimenu utama,total data didata tabel dipanggil ke label total
     }  
- 
+    public void datatabel_penilaian(){              
+       Object[] Baris = {"ID Penilaian","NIK","Nama","Jam Kerja","Absensi","Kerapihan", "Keterlambatan"};
+        tabelpenilaian = new DefaultTableModel(null, Baris);
+        tblpenilaian.setModel(tabelpenilaian);
+        try{
+            String sql = "select penilaian_karyawan.id_penilaian, penilaian_karyawan.jam_kerja, penilaian_karyawan.absensi, penilaian_karyawan.kerapihan, "
+                    + "penilaian_karyawan.keterlambatan, karyawan.nik, karyawan.nama from penilaian_karyawan "
+                    + "INNER JOIN karyawan ON penilaian_karyawan.nik=karyawan.nik";
+            java.sql.Statement stat = conn.createStatement();
+            ResultSet hasil = stat.executeQuery(sql);
+            while(hasil.next()){
+                String a = hasil.getString("id_penilaian");
+                String b = hasil.getString("nik");
+                String c = hasil.getString("nama"); 
+                String d = hasil.getString("jam_kerja"); 
+                String e = hasil.getString("absensi");
+                String f = hasil.getString("kerapihan"); 
+                String g = hasil.getString("keterlambatan");
+                String[] data = {a,b,c,d,e,f,g};
+                tabelpenilaian.addRow(data); 
+            }
+        }catch (Exception e){
+        }
+        
+        //int b = tabmode.getRowCount();
+        //lbltotal.setText(""+b);    //label total karyawan yg diform karyawan,total data didatbel dipanggil ke label total
+        //lbltotal_karyawan.setText(""+b); //label total karyawan yg dimenu utama,total data didata tabel dipanggil ke label total
+    }   
     public void addPlaceholderStyle(JTextField textField){
     Font font = textField.getFont();
     textField.setFont(font);
@@ -104,7 +131,7 @@ public class penilaian_pul extends javax.swing.JPanel {
         txtkedisiplinan.setText("");
         txthasilkerja.setText("");
         txtnama.setText("");
-        jComboBox1.getModel().setSelectedItem("Pilih");
+        jComboNik.getModel().setSelectedItem("Pilih");
 //        jComboBox3.getModel().setSelectedItem("Kehadiran");
 //        jComboBox2.getModel().setSelectedItem("Sikap");
 //        jComboBox4.getModel().setSelectedItem("Kedisiplinan");
@@ -114,6 +141,7 @@ public class penilaian_pul extends javax.swing.JPanel {
 //        jButton3.setEnabled(false);
 //        jButton4.setEnabled(false);
         tblpenilaian.getSelectionModel().clearSelection();
+        valueComboBox();
     }
     public void onlyNumber(java.awt.event.KeyEvent evt){
         char enter = evt.getKeyChar();
@@ -123,7 +151,8 @@ public class penilaian_pul extends javax.swing.JPanel {
     }
     
     public void valueComboBox(){
-        jComboBox1.addItem("pilih");
+        jComboNik.removeAllItems();
+        jComboNik.addItem("pilih");
         try{
             String sql = "SELECT * FROM karyawan \n" +
 "left join bobot on karyawan.nik = bobot.nik \n" +
@@ -132,7 +161,7 @@ public class penilaian_pul extends javax.swing.JPanel {
             ResultSet hasil = stat.executeQuery(sql);
 
             while(hasil.next()){
-                jComboBox1.addItem(hasil.getString("nik"));
+                jComboNik.addItem(hasil.getString("nik"));
             }
         }catch(SQLException e){
             System.err.println("SQL Exception: " + e.getMessage());
@@ -144,7 +173,7 @@ public class penilaian_pul extends javax.swing.JPanel {
         LinkedList max = new LinkedList();
         LinkedList mn = new LinkedList();            
         try{
-            String sql = "select max(nilai_jam_kerja), max(nilai_absensi), max(nilai_kerapihan), min(nilai_keterlambatan) from rating_kecocokan ";
+            String sql = "select max(nilai_c1), max(nilai_c2), max(nilai_c3), min(nilai_c4) from rating_kecocokan ";
             java.sql.Statement stat = conn.createStatement();
             ResultSet normalisasi = stat.executeQuery(sql);
             while (normalisasi.next()){
@@ -153,7 +182,7 @@ public class penilaian_pul extends javax.swing.JPanel {
                 max.add(normalisasi.getString(3));
                 max.add(normalisasi.getString(4));
             }
-            String sqli = "select rating_kecocokan.nilai_jam_kerja, rating_kecocokan.nilai_absensi, rating_kecocokan.nilai_kerapihan, rating_kecocokan.nilai_keterlambatan, "
+            String sqli = "select rating_kecocokan.nilai_c1, rating_kecocokan.nilai_c2, rating_kecocokan.nilai_c3, rating_kecocokan.nilai_c4, "
                     + "karyawan.nik, karyawan.nama "
                     + "from rating_kecocokan INNER JOIN karyawan ON rating_kecocokan.nik=karyawan.nik";
             ResultSet res2 = stat.executeQuery(sqli);
@@ -162,10 +191,10 @@ public class penilaian_pul extends javax.swing.JPanel {
                     tabelNormalisasi.addRow(new Object[]{
                     res2.getString("nik"),
                     res2.getString("nama"),
-                    (res2.getFloat("nilai_jam_kerja")/Float.valueOf(max.get(0).toString())),
-                    (res2.getFloat("nilai_absensi")/Float.valueOf(max.get(1).toString())),
-                    (res2.getFloat("nilai_kerapihan")/Float.valueOf(max.get(2).toString())),
-                    (Float.valueOf(max.get(3).toString())/res2.getFloat("nilai_keterlambatan"))});
+                    (res2.getFloat("nilai_c1")/Float.valueOf(max.get(0).toString())),
+                    (res2.getFloat("nilai_c2")/Float.valueOf(max.get(1).toString())),
+                    (res2.getFloat("nilai_c3")/Float.valueOf(max.get(2).toString())),
+                    (Float.valueOf(max.get(3).toString())/res2.getFloat("nilai_c4"))});
                     //(res2.getFloat("keterlambatan")/Float.valueOf(max.get(3).toString()))});
                             //(Float.valueOf(max.get(3).toString())/res2.getFloat("keterlamban"))});
             }
@@ -192,10 +221,19 @@ public class penilaian_pul extends javax.swing.JPanel {
         stat.setString(2, txtsikap.getText());
         stat.setString(3, txtkedisiplinan.getText());
         stat.setString(4, txthasilkerja.getText());
-        stat.setString(5, jComboBox1.getSelectedItem().toString());
+        stat.setString(5, jComboNik.getSelectedItem().toString());
         System.out.println( stat);
         stat.executeUpdate();
 
+        String sql2 = "update rating_kecocokan set nilai_c1=?, nilai_c2=?, nilai_c3=?, nilai_c4=? where nik=?";
+        PreparedStatement stat2 = conn.prepareStatement(sql2);
+        stat2.setString(1, txtkehadiran.getText());
+        stat2.setString(2, txtsikap.getText());
+        stat2.setString(3, txtkedisiplinan.getText());
+        stat2.setString(4, txthasilkerja.getText());
+        stat2.setString(5, jComboNik.getSelectedItem().toString());
+        System.out.println( stat2);
+        stat2.executeUpdate();
         JOptionPane.showMessageDialog(null, "Data Berhasil Diubah");
         }catch (SQLException e){
         JOptionPane.showMessageDialog(null, "Data Gagal Diubah "+e);
@@ -236,7 +274,7 @@ public class penilaian_pul extends javax.swing.JPanel {
         jButton1 = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
         jButton7 = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        jComboNik = new javax.swing.JComboBox<>();
 
         jPanel1.setBackground(new java.awt.Color(248, 248, 255));
         jPanel1.setFont(new java.awt.Font("Tahoma", 0, 13)); // NOI18N
@@ -415,18 +453,18 @@ public class penilaian_pul extends javax.swing.JPanel {
             }
         });
 
-        jComboBox1.setMaximumRowCount(100);
-        jComboBox1.addItemListener(new java.awt.event.ItemListener() {
+        jComboNik.setMaximumRowCount(100);
+        jComboNik.addItemListener(new java.awt.event.ItemListener() {
             public void itemStateChanged(java.awt.event.ItemEvent evt) {
-                jComboBox1ItemStateChanged(evt);
+                jComboNikItemStateChanged(evt);
             }
         });
-        jComboBox1.addMouseListener(new java.awt.event.MouseAdapter() {
+        jComboNik.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseClicked(evt);
+                jComboNikMouseClicked(evt);
             }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
-                jComboBox1MouseEntered(evt);
+                jComboNikMouseEntered(evt);
             }
         });
 
@@ -451,7 +489,7 @@ public class penilaian_pul extends javax.swing.JPanel {
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(jComboNik, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(txtnama, javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -481,7 +519,7 @@ public class penilaian_pul extends javax.swing.JPanel {
                 .addGap(23, 23, 23)
                 .addComponent(lblnik)
                 .addGap(5, 5, 5)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(jComboNik, javax.swing.GroupLayout.PREFERRED_SIZE, 33, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblnik1)
                 .addGap(12, 12, 12)
@@ -597,7 +635,7 @@ public class penilaian_pul extends javax.swing.JPanel {
                 PreparedStatement stat = conn.prepareStatement(sql);
 //                stat.setInt(1, Integer.parseInt(txtnik.getText()));
 //                stat.setString(1, "0");
-                stat.setString(1, jComboBox1.getSelectedItem().toString());
+                stat.setString(1, jComboNik.getSelectedItem().toString());
 //                stat.setString(2, txtnama.getText());
 //                stat.setString(3, jComboBox3.getSelectedItem().toString());
 //                stat.setString(4, jComboBox2.getSelectedItem().toString());
@@ -615,13 +653,24 @@ public class penilaian_pul extends javax.swing.JPanel {
                 System.out.println( stat);
                 stat.executeUpdate();
 //                jTextField1.requestFocus();
+
+                String sql2 = "insert into rating_kecocokan values (?,?,?,?,?)";
+                PreparedStatement stat3 = conn.prepareStatement(sql2);
+                stat3.setString(1, jComboNik.getSelectedItem().toString());
+                stat3.setString(2, txtkehadiran.getText());
+                stat3.setString(3, txtsikap.getText());
+                stat3.setString(4, txtkedisiplinan.getText());
+                stat3.setString(5, txthasilkerja.getText());
+                stat3.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Data Berhasil Disimpan");
             } catch (SQLException e) {
                 JOptionPane.showMessageDialog(null, "Data Gagal Disimpan "+e);
             }
             
             bersih();
-            datatabel();
+        datatabel();
+        normalisasi();
+//        datatabel_penilaian();
         }
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -633,7 +682,7 @@ bersih();
     private void tblpenilaianMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblpenilaianMouseClicked
         int bar = tblpenilaian.getSelectedRow();
         
-        jComboBox1.getModel().setSelectedItem(tabmode.getValueAt(bar, 0).toString());
+        jComboNik.getModel().setSelectedItem(tabmode.getValueAt(bar, 0).toString());
         txtnama.setText(tabmode.getValueAt(bar, 1).toString());
 //        txtnama.setText(tabmode.getValueAt(bar, 1).toString());
 //        jComboBox3.getModel().setSelectedItem(tabmode.getValueAt(bar, 2).toString());
@@ -651,7 +700,7 @@ bersih();
 //        jButton2.setEnabled(true);
     }//GEN-LAST:event_tblpenilaianMouseClicked
 
-    private void jComboBox1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseEntered
+    private void jComboNikMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboNikMouseEntered
         
 //        try{
 //            String sql = "select * from karyawan";
@@ -664,14 +713,14 @@ bersih();
 //        }catch(SQLException e){
 //            System.err.println("SQL Exception: " + e.getMessage());
 //        }
-    }//GEN-LAST:event_jComboBox1MouseEntered
+    }//GEN-LAST:event_jComboNikMouseEntered
 
-    private void jComboBox1ItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboBox1ItemStateChanged
+    private void jComboNikItemStateChanged(java.awt.event.ItemEvent evt) {//GEN-FIRST:event_jComboNikItemStateChanged
 
 //            jComboBox1.getSelectedItem();
             try{
             String sql = "select * from karyawan left join bobot\n" +
-"on bobot.nik = karyawan.nik where karyawan.nik = '"+jComboBox1.getSelectedItem()+"'";
+"on bobot.nik = karyawan.nik where karyawan.nik = '"+jComboNik.getSelectedItem()+"'";
             java.sql.Statement stat = conn.createStatement();
             ResultSet hasil = stat.executeQuery(sql);
 
@@ -693,7 +742,7 @@ bersih();
         }catch(SQLException e){
             System.err.println("SQL Exception: " + e.getMessage());
         }
-    }//GEN-LAST:event_jComboBox1ItemStateChanged
+    }//GEN-LAST:event_jComboNikItemStateChanged
 
     private void txtkehadiranKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtkehadiranKeyTyped
         onlyNumber(evt);
@@ -718,12 +767,12 @@ bersih();
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
         int OK = JOptionPane.showConfirmDialog(null, "Hapus", "Konfirmasi Dialog", JOptionPane.YES_NO_OPTION);
         if(OK==0){
-            String sql = "delete from bobot where nik = '"+jComboBox1.getSelectedItem()+"'";
+            String sql = "delete from bobot where nik = '"+jComboNik.getSelectedItem()+"'";
             try{
                 PreparedStatement stat = conn.prepareStatement(sql);
                 stat.executeUpdate();
                 JOptionPane.showMessageDialog(null, "Data Berhasil Dihapus");
-                jComboBox1.requestFocus();
+                jComboNik.requestFocus();
             }catch (SQLException e){
                 JOptionPane.showMessageDialog(null, "Data Gagal Dihapus "+e);
             }
@@ -732,9 +781,9 @@ bersih();
         datatabel();
     }//GEN-LAST:event_jButton4ActionPerformed
 
-    private void jComboBox1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboBox1MouseClicked
+    private void jComboNikMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jComboNikMouseClicked
         
-    }//GEN-LAST:event_jComboBox1MouseClicked
+    }//GEN-LAST:event_jComboNikMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -744,7 +793,7 @@ bersih();
     private javax.swing.JButton jButton5;
     private javax.swing.JButton jButton7;
     private javax.swing.JButton jButton9;
-    private javax.swing.JComboBox<String> jComboBox1;
+    private javax.swing.JComboBox<String> jComboNik;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

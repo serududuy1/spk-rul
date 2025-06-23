@@ -904,6 +904,7 @@ public class menuUtama extends javax.swing.JFrame {
         pr.setVisible(false);
         kt.setVisible(false);
 //        at.setVisible(false);
+        pn.valueComboBox();
         // btn input
         btnkaryawan.setVisible(true);
         btnpenilaian.setVisible(true);
@@ -963,7 +964,6 @@ public class menuUtama extends javax.swing.JFrame {
 //        at.setVisible(true);
         // btn input
         btnkaryawan.setVisible(true);
-        btnpenilaian.setVisible(true);
         btnpenilaian.setVisible(true);
     }//GEN-LAST:event_btnaboutMouseClicked
 
