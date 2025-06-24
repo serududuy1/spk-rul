@@ -10,7 +10,7 @@ public class koneksi {
         }catch(ClassNotFoundException ex){
             System.out.println("Gagal conn "+ex);
         }
-        String url = "jdbc:mysql://localhost/spk_rul";
+        String url = "jdbc:mysql://localhost/spk_nb_saw";
         
         try{
             conn = DriverManager.getConnection(url,"root","");

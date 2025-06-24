@@ -546,15 +546,15 @@ public class karyawan extends javax.swing.JPanel {
            JOptionPane.showMessageDialog(null, "Harap Masukkan input", "Alert", JOptionPane.ERROR_MESSAGE);
         }else{
             try{
-                String sql = "insert into karyawan values (?,?,?,?)";
+                String sql = "insert into karyawan values (?,?,?,?,?)";
                 PreparedStatement stat = conn.prepareStatement(sql);
 //                stat.setInt(1, Integer.parseInt(txtnik.getText()));
                 stat.setString(1, txtnik.getText());
                 stat.setString(2, txtnama.getText());
                 stat.setString(3, txtalamat .getText());
-                stat.setString(4, txtjabatan .getText());
+                stat.setString(4, jComboBox2.getSelectedItem().toString());
+                stat.setString(5, txtjabatan .getText());
 //                stat.setString(4, jComboBox1.getSelectedItem().toString());
-//                stat.setString(4, jComboBox2.getSelectedItem().toString());
 //                stat.setString(6,"");
                 System.out.println( stat);
                 stat.executeUpdate();

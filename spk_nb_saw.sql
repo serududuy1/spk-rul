@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Waktu pembuatan: 23 Jun 2025 pada 12.37
+-- Waktu pembuatan: 24 Jun 2025 pada 04.13
 -- Versi server: 10.4.32-MariaDB
 -- Versi PHP: 8.0.30
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `spk_rul`
+-- Database: `spk_nb_saw`
 --
 
 -- --------------------------------------------------------
@@ -130,11 +130,11 @@ CREATE TABLE `karyawan` (
 --
 
 INSERT INTO `karyawan` (`nik`, `nama`, `alamat`, `jenis_kelamin`) VALUES
-(2153, ' Syahid Mahardika', 'Semarang', 'Chief Store S&D MH.Thamrin'),
-(2525, 'Rizal Sugiarto', 'Semarang ', 'Mekanik S&D Wahidin Baru'),
-(2642, 'Israji', 'Cibinong', 'Chief Store S&D Mayor Oking Baru'),
-(2750, 'Hermanto', 'Semarang ', 'Mekanik S&D Sudirman'),
-(3190, 'Muhamad Abdul Rokhim', 'Semarang', 'Chief Store S&D Pamulasarih');
+(2153, ' Syahid Mahardika', 'Semarang', 'Laki-Laki'),
+(2525, 'Rizal Sugiarto', 'Semarang ', 'Laki-Laki'),
+(2642, 'Israji', 'Cibinong', 'Laki-Laki'),
+(2750, 'Hermanto', 'Semarang ', 'Laki-Laki'),
+(3190, 'Muhamad Abdul Rokhim', 'Semarang', 'Laki-Laki');
 
 -- --------------------------------------------------------
 

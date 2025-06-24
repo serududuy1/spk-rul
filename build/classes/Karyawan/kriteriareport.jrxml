@@ -45,21 +45,21 @@
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[id_kriteria]]></text>
+				<text><![CDATA[NO]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="1ca69517-c976-4beb-9c67-8301b7a09064" mode="Opaque" x="185" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[nama_kriteria]]></text>
+				<text><![CDATA[NAMA KRITERIA]]></text>
 			</staticText>
 			<staticText>
 				<reportElement uuid="fef6b2ff-5517-4c89-bd14-5f39596bed42" mode="Opaque" x="370" y="0" width="185" height="20" forecolor="#006699" backcolor="#E6E6E6"/>
 				<textElement textAlignment="Center">
 					<font size="14" isBold="true"/>
 				</textElement>
-				<text><![CDATA[bobot]]></text>
+				<text><![CDATA[BOBOT]]></text>
 			</staticText>
 		</band>
 	</columnHeader>
@@ -70,7 +70,7 @@
 			</line>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="8c5cbe98-4f00-4fde-9c56-f9f9554936a5" x="0" y="0" width="185" height="20"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{id_kriteria}]]></textFieldExpression>
@@ -84,7 +84,7 @@
 			</textField>
 			<textField isStretchWithOverflow="true">
 				<reportElement uuid="604512aa-670c-446f-ae82-36aa247ce7e4" x="370" y="0" width="185" height="20"/>
-				<textElement>
+				<textElement textAlignment="Center">
 					<font size="14"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{bobot}]]></textFieldExpression>
